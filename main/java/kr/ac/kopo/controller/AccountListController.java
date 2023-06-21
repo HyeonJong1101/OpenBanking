@@ -17,13 +17,13 @@ public class AccountListController implements Controller{
 
 		HttpSession session = request.getSession();
 		UserVO vo = (UserVO) session.getAttribute("user");
-		//System.out.println(vo.getId());
 		
 		AccountDAO dao = new AccountDAO();
 		
 		List<AccountVO> accountList = dao.accountList(vo); 
 		
-		request.setAttribute("accountList", accountList);
+		//request.setAttribute("accountList", accountList);
+		session.setAttribute("accountList", accountList);
 		
 		return "jsp/account/accountList.jsp";
 	}

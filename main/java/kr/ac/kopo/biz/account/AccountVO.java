@@ -7,7 +7,15 @@ public class AccountVO {
 	private int password;
 	private String type;
 	private int money;
+	private String bankCode;
 	
+	
+	public String getBankCode() {
+		return bankCode;
+	}
+	public void setBankCode(String bankCode) {
+		this.bankCode = bankCode;
+	}
 	public int getAccountNum() {
 		return accountNum;
 	}

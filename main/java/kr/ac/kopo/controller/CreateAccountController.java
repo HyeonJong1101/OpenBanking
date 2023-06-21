@@ -36,6 +36,7 @@ public class CreateAccountController implements Controller{
 		accountNum = Integer.parseInt(num);
 
 		int money = 0;
+		String code = "H.J";
 		
 		AccountVO vo = new AccountVO();
 		vo.setId(id);
@@ -43,6 +44,7 @@ public class CreateAccountController implements Controller{
 		vo.setPassword(password);
 		vo.setAccountNum(accountNum);
 		vo.setMoney(money);
+		vo.setBankCode(code);
 		
 		AccountDAO dao = new AccountDAO();
 		dao.insertAccount(vo);

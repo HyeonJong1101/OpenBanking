@@ -12,12 +12,11 @@
 <body>
 
 		<div id="side-form">
-			<a href="${pageContext.request.contextPath }/accountlist.do">내계좌 보기</a><br />
-			<br /> 입출금 내역<br /><br>
-			<a href="${pageContext.request.contextPath }/myaccount.do">계좌 개설</a><br />
-			<br /> 계좌 이체<br />
-			<br /> 계좌 해지<br />
-			<br />
+			<a href="${pageContext.request.contextPath }/accountlist.do">내계좌 보기</a><br /><br /> 
+			입출금 내역<br /><br>
+			<a href="${pageContext.request.contextPath }/myaccount.do">계좌 개설</a><br /><br />
+			 <a href="${pageContext.request.contextPath }/accounttransferpage.do">계좌 이체</a><br /><br />
+			 계좌 해지<br /><br />
 			
 		</div>
 

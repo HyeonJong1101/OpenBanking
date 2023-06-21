@@ -15,8 +15,8 @@ public class AccountDAO {
 	private PreparedStatement stmt;
 	private ResultSet rs;
 	
-	private static String ACCOUNT_INSERT = "insert into b_account(accountnumber,memberid,accounttype,money,password) " +
-			" values(?, ?, ?, ?,?) ";
+	private static String ACCOUNT_INSERT = "insert into b_account(accountnumber,memberid,accounttype,money,password,bankcode) " +
+			" values(?, ?, ?, ?,?,?) ";
 	private static String ACCOUNT_LIST="select * from b_account where memberid=?";
 	
 	public void insertAccount(AccountVO vo) {
@@ -28,6 +28,7 @@ public class AccountDAO {
 			stmt.setString(3, vo.getType());
 			stmt.setInt(4, vo.getMoney());
 			stmt.setInt(5, vo.getPassword());
+			stmt.setString(6, vo.getBankCode());
 			stmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
