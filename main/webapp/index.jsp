@@ -8,6 +8,7 @@
 
 <style>
 	#slide{
+	
 		position : relative;
 		background-color : rgb(197,233,254);
 	}
