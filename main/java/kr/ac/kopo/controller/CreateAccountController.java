@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import kr.ac.kopo.biz.account.AccountDAO;
 import kr.ac.kopo.biz.account.AccountVO;
+import kr.ac.kopo.biz.accountlist.AccountListDAO;
+import kr.ac.kopo.biz.accountlist.AccountListVO;
 
 public class CreateAccountController implements Controller{
 
@@ -48,6 +50,13 @@ public class CreateAccountController implements Controller{
 		
 		AccountDAO dao = new AccountDAO();
 		dao.insertAccount(vo);
+		
+		AccountListVO vo2 = new AccountListVO();
+		vo2.setAccountNum(accountNum);
+		vo2.setStatus("T");
+		
+		AccountListDAO dao2 = new AccountListDAO();
+		dao2.insertList(vo2);
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("account", vo);

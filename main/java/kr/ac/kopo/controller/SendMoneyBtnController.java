@@ -35,12 +35,22 @@ public class SendMoneyBtnController implements Controller{
 			TransactionVO vo2 = new TransactionVO();
 			vo2.setAccountNum(accountNum);
 			vo2.setAccountNum2(transferaccountNum);
-			vo2.setTransactiontype("입금");
+			vo2.setTransactiontype("-");
 			vo2.setAmount(money);
 			vo2.setRegdate("20230621");
 			
 			TransactionDAO dao2 = new TransactionDAO();
 			dao2.insert(vo2);
+			
+			TransactionVO vo3 = new TransactionVO();
+			vo3.setAccountNum(transferaccountNum);
+			vo3.setAccountNum2(accountNum);
+			vo3.setTransactiontype("+");
+			vo3.setAmount(money);
+			vo3.setRegdate("20230621");
+			
+			TransactionDAO dao3 = new TransactionDAO();
+			dao3.insert(vo3);
 			
 			System.out.println("성공2");
 			request.setAttribute("msg", "이체성공");

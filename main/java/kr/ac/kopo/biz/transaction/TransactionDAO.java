@@ -61,6 +61,8 @@ public class TransactionDAO {
 			stmt.setString(3, vo.getTransactiontype());
 			stmt.setInt(4, vo.getAmount());
 			stmt.setString(5, vo.getRegdate());
+			
+			
 			stmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -18,7 +18,6 @@
 리스트
 <table border="1" id="board">
 		<tr>
-			<td>id</td>
 			<td>계좌번호</td>
 			<td>계좌번호2</td>
 			<td>type</td>
@@ -27,7 +26,6 @@
 		</tr>
 		<c:forEach var="book" items="${historyList }">
 			<tr>
-				<td>${book.transactionID }</td>
 				<td>${book.accountNum }</td>
 				<td>${book.accountNum2 }</td>
 				<td>${book.transactiontype }</td>

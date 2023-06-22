@@ -34,7 +34,7 @@
 	<table id="top_menu">
 	<tr >
 		<td><a href="${pageContext.request.contextPath }/main.do">Home  |</a>
-		    <a href="${pageContext.request.contextPath }/logout.do">게시판 |</a>
+		    <a href="${pageContext.request.contextPath }/board.do">게시판 |</a>
 			<a href="${pageContext.request.contextPath }/logout.do">상품 |</a> 
 			<c:if test="${empty user}">
 			<a href="${pageContext.request.contextPath }/login.do">로그인 |</a> 			
@@ -51,6 +51,11 @@
 			</c:if>
 	</tr>
 </table>
+	<script>
+		function showAlert() {
+			alert("로그인 후에 글을 작성할 수 있습니다.");
+		}
+	</script>
 </div>
 </body>
 </html>

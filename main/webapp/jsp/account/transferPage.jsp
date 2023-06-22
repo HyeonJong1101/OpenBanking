@@ -18,7 +18,7 @@
 	<div id="account-form">
 		계좌이체<br>
 
-		<form action="${pageContext.request.contextPath }/sendmoney.do" method="post" onsubmit="return validateForm()">
+		<form action="${pageContext.request.contextPath }/sendmoney.do" method="post">
 			내 계좌선택 : <select name="accountNum">
 			<c:forEach var="account" items="${accountList }">
 				<option>${account.accountNum }</option>

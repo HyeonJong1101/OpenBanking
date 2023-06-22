@@ -13,6 +13,8 @@ public class AccountListDAO {
 	private ResultSet rs;
 	
 	private static String ACCOUNT_SEARCH="select * from b_accountlist where accountnumber=? ";
+	private static String LIST_INSERT="insert into b_accountlist(accountlistid,accountnumber,status) "+
+									  " values((select nvl(max(accountlistid),0)+1 from b_accountlist),?,?) ";
 
 	public AccountListVO searchAccount(AccountListVO vo) {
 		
@@ -36,6 +38,23 @@ public class AccountListDAO {
 			JDBCUtil.close(rs, stmt, conn);
 		}
 		return account;
+	}
+
+	public void insertList(AccountListVO vo) {
+
+		try {
+			conn = JDBCUtil.getConnection();
+			stmt = conn.prepareStatement(LIST_INSERT);
+			stmt.setInt(1, vo.getAccountNum());
+			stmt.setString(2, vo.getStatus());
+			
+			stmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(stmt, conn);
+		}
+		
 	}
 
 }

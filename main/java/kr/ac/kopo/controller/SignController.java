@@ -40,7 +40,8 @@ public class SignController implements Controller{
 			e.printStackTrace();
 			sendErrorAlert(response, "실패");
 			//request.setAttribute("msg", "실패");
-            return "/jsp/sign/signF.jsp";
+            //return "/jsp/sign/signF.jsp";
+			return "";
 		}
 		//return "index.jsp";
 		
