@@ -8,6 +8,8 @@
 
 <link rel="stylesheet" href="jsp/style.css">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 <body>
 
@@ -48,6 +50,38 @@
 	<script>
 		function addComment() {
 			var commentInput = document.getElementById("comment-input");
+			
+			var data = {
+				comment: commentInput.value
+			};
+			
+			$.ajax({
+				url: "jsp/board/content.jsp",
+				type: "POST",
+				data: data,
+				success: function(response) {
+					
+					commentInput.value = "";
+					
+					var commentTable = document.getElementById("comment-table");
+					var newRow = commentTable.insertRow(-1);
+					var cell1 = newRow.insertCell(0);
+					var cell2 = newRow.insertCell(1);
+					var cell3 = newRow.insertCell(2);
+					cell1.innerHTML = "${user.id}"; 
+					cell2.innerHTML = response.comment; 
+					cell3.innerHTML = new Date().toLocaleString(); 
+				},
+				error: function(xhr, status, error) {
+				}
+			});
+		}
+	</script>	
+	
+	<!-- 
+	<script>
+		function addComment() {
+			var commentInput = document.getElementById("comment-input");
 			var commentTable = document.getElementById("comment-table");
 			var newRow = commentTable.insertRow(-1);
 			var cell1 = newRow.insertCell(0);
@@ -59,5 +93,6 @@
 			commentInput.value = ""; // Clear the input field after adding the comment
 		}
 	</script>
+	 -->
 </body>
 </html>

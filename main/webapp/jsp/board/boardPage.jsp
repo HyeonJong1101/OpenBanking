@@ -1,15 +1,71 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="kr.ac.kopo.biz.board.BoardDAO" %>
+<%@ page import="kr.ac.kopo.biz.board.BoardVO" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<style>
+
+
+#board {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+}
+
+ #board {
+  border: 1px solid #ccc;
+}
+
+#board th, #board td {
+  padding: 10px;
+  text-align: left;
+}
+
+#board tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#board tr:hover {
+  background-color: #e6e6e6;
+}
+
+button {
+  background: none;
+  border: none;
+  color: blue;
+  cursor: pointer;
+}
+
+#insert {
+  margin-top: 20px;
+  text-align: right;
+}
+
+#insert a {
+  color: black;
+  text-decoration: none;
+  padding: 10px 20px;
+  background-color: #ddd;
+  border-radius: 4px;
+}
+
+#insert a:hover {
+  background-color: #ccc;
+}
+</style>
+
 </head>
 <body>
 
 	<header>
-		<%@ include file="/jsp/include/top.jsp"%>
+		<%@ include file="/jsp/include/top.jsp"%> 
 		<%@ include file="/jsp/include/top_board.jsp"%>
 	</header>
 
@@ -39,6 +95,8 @@
 		</c:forEach>
 	</table>
 	<br>
+
+	
 	<div id="insert">
 		
 		<c:choose>
@@ -51,6 +109,20 @@
 		</c:choose>
 	</div>
 	
-	
+	<%-- 페이징 테이블 --%>
+		<table width="70%">
+		<tr>
+			<td>
+			<c:forEach var="i" begin="1" end="${lastPage}">
+				<c:if test="${i eq pageNo}">
+					<strong>[${i}]</strong>
+				</c:if>
+				<c:if test="${i ne pageNo}">
+					<a href="board.do?pageNo=${i}">[${i}]</a>
+				</c:if>
+			</c:forEach>	
+			</td>
+		</tr>	
+		</table>
 </body>
 </html>

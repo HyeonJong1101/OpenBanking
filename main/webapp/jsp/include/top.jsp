@@ -25,6 +25,7 @@
 	text-decoration: none;
 	color : black;
 }
+
 </style>
 
 </head>
@@ -35,7 +36,7 @@
 	<tr >
 		<td><a href="${pageContext.request.contextPath }/main.do">Home  |</a>
 		    <a href="${pageContext.request.contextPath }/board.do">게시판 |</a>
-			<a href="${pageContext.request.contextPath }/logout.do">상품 |</a> 
+			<a href="${pageContext.request.contextPath }/productbtn.do">상품 |</a> 
 			<c:if test="${empty user}">
 			<a href="${pageContext.request.contextPath }/login.do">로그인 |</a> 			
 			</c:if>
