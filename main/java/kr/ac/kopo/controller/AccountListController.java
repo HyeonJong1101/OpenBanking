@@ -20,10 +20,11 @@ public class AccountListController implements Controller{
 		
 		AccountDAO dao = new AccountDAO();
 		
-		List<AccountVO> accountList = dao.accountList(vo); 
+		List<AccountVO> accountList = dao.accountList(vo);
+		List<AccountVO> accountList_BGH = dao.accountList_BGH(vo);
 		
-		//request.setAttribute("accountList", accountList);
 		session.setAttribute("accountList", accountList);
+		session.setAttribute("accountList_BGH", accountList_BGH);
 		
 		return "jsp/account/accountList.jsp";
 	}

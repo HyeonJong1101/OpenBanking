@@ -23,27 +23,28 @@ public class SignController implements Controller{
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		String name = request.getParameter("name");
+		String birth = request.getParameter("birth");
+		String phone = request.getParameter("phone");
+		String sex = request.getParameter("sex");
 	
 		UserVO vo = new UserVO();
 		vo.setId(id);
 		vo.setPassword(password);
 		vo.setName(name);
+		vo.setBirthday(birth);
+		vo.setPhoneNumber(phone);
+		vo.setSex(sex);
 		UserDAO dao = new UserDAO();
 		
 		try {
 			dao.insertUser(vo); //회원가입 성공한 경우
-			//sendErrorAlert(response, "가입성공");
 			request.setAttribute("msg", "성공");
-			//return "index.jsp";
 			return "jsp/sign/signT.jsp";
 		}catch(Exception e) {
 			e.printStackTrace();
 			sendErrorAlert(response, "실패");
-			//request.setAttribute("msg", "실패");
-            //return "/jsp/sign/signF.jsp";
 			return "";
 		}
-		//return "index.jsp";
 		
 	}
 

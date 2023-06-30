@@ -3,7 +3,7 @@ package kr.ac.kopo.biz.accountlist;
 public class AccountListVO {
 
 	private int accountListId;
-	private int accountNum;
+	private String accountNum;
 	private String status;
 	
 	
@@ -13,10 +13,11 @@ public class AccountListVO {
 	public void setAccountListId(int accountListId) {
 		this.accountListId = accountListId;
 	}
-	public int getAccountNum() {
+	
+	public String getAccountNum() {
 		return accountNum;
 	}
-	public void setAccountNum(int accountNum) {
+	public void setAccountNum(String accountNum) {
 		this.accountNum = accountNum;
 	}
 	public String getStatus() {

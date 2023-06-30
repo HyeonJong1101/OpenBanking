@@ -37,6 +37,9 @@
 		<td><a href="${pageContext.request.contextPath }/main.do">Home  |</a>
 		    <a href="${pageContext.request.contextPath }/board.do">게시판 |</a>
 			<a href="${pageContext.request.contextPath }/productbtn.do">상품 |</a> 
+			<c:if test="${user.id =='banker'}">
+			<a href="${pageContext.request.contextPath }/productbtnBanker.do">상품관리 |</a>
+			</c:if> 
 			<c:if test="${empty user}">
 			<a href="${pageContext.request.contextPath }/login.do">로그인 |</a> 			
 			</c:if>

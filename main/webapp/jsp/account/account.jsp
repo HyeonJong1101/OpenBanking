@@ -25,9 +25,12 @@
 
 					<div id="account-sign2">
 						<select name="goods">
-							<option>상품1</option>
-							<option>상품2</option>
-							<option>상품3</option>
+							<c:forEach var="product" items="${productList }">
+								<c:if test="${product.productStatus == 1 }">
+								<option value="${product.productID}+${product.productName }">${product.productName }</option>
+								</c:if>
+							</c:forEach>
+							
 						</select><br><br>
 						 <input type="password" id="account_pass" name="password" placeholder="계좌비밀번호" /><br />
 						 <input	type="password" id="account_pass2" placeholder="계좌비밀번호확인" /><br>

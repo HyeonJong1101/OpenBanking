@@ -15,30 +15,55 @@ public class AccountDAO {
 	private PreparedStatement stmt;
 	private ResultSet rs;
 	
-	private static String ACCOUNT_INSERT = "insert into b_account(accountnumber,memberid,accounttype,money,password,bankcode) " +
-			" values(?, ?, ?, ?,?,?) ";
-	private static String ACCOUNT_LIST="select * from b_account where memberid=?";
-	private static String ACCOUNT_SEARCH="select * from b_account where accountnumber=? and money> ? ";
-	private static String ACCOUNT_SEARCH2="select * from b_account where accountnumber=? ";
+	private static String ACCOUNT_INSERT = "insert into b_account(account_no,memberid,accounttype,money,password,bankcode,productid) " +
+			" values(?, ?, ?, ?,?,?,?) ";
+	//private static String ACCOUNT_LIST="select * from b_account where memberid=?";
+	private static String ACCOUNT_LIST="select * from b_account a "+
+									   "join b_accountlist b on a.account_no=b.account_no "+
+									   "where b.status='T' and a.memberid=?";
+	private static String ACCOUNT_LIST_BGH="select c.* "+
+									   	   "from b_account@BGH c "+
+									   	   "JOIN b_accountlist@BGH d ON c.account_no = d.account_no "+
+									   	   "JOIN b_user@BGH a ON c.user_id = a.user_id "+
+									   	   "JOIN b_member b ON a.user_name = b.username "+
+									   	   "    AND a.user_birth = b.birthday "+
+									   	   "    AND a.user_phone = b.phonenumber "+
+									   	   "WHERE d.accountlist_possible = 'O' "+
+									   	   "and b.memberid = ? ";
+	private static String ACCOUNT_SEARCH="select * from b_account where account_no=? and money> ? ";
+	private static String ACCOUNT_SEARCH2="select * from b_account where account_no=? ";
 	private static String ACCOUNT_MONEY_UPDATE="update b_account set money=case "+
-											   " when accountnumber=? then money - ? "+
-											   " when accountnumber=? then money + ? "+
+											   " when account_no=? then money - ? "+
+											   " when account_no=? then money + ? "+
 											   " else money end "+
-											   " where accountnumber in (?,?) ";
+											   " where account_no in (?,?) ";
+	private static String ACCOUNT_MONEY_UPDATE_BGH="update b_account set money=money-? "+
+													" where account_no=?  ";
+	private static String ACCOUNT_MONEY_UPDATE_BGH2="update b_account@BGH set account_balance=account_balance+? "+
+												   " where account_no=?  ";
+
+	private static String ACCOUNT_MONEY_UPDATE_JH="update b_account@JH set balance=balance+? "+
+			" where account_no=?  ";
 	
-	public void insertAccount(AccountVO vo) {
+	private static String ACCOUNT_TOTALMONEY = "select * from b_account where account_no=? ";
+	
+	public boolean insertAccount(AccountVO vo) {
 		try {
 			conn = JDBCUtil.getConnection();
 			stmt = conn.prepareStatement(ACCOUNT_INSERT);
-			stmt.setInt(1, vo.getAccountNum());
+			stmt.setString(1, vo.getAccountNum());
 			stmt.setString(2, vo.getId());
 			stmt.setString(3, vo.getType());
 			stmt.setInt(4, vo.getMoney());
 			stmt.setInt(5, vo.getPassword());
 			stmt.setString(6, vo.getBankCode());
+			stmt.setString(7, vo.getProductID());
 			stmt.executeUpdate();
+			
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		} finally {
 			JDBCUtil.close(stmt, conn);
 		}
@@ -56,11 +81,28 @@ public class AccountDAO {
 
 			while (rs.next()) {
 				AccountVO account = new AccountVO();
-				account.setAccountNum(rs.getInt("accountnumber"));
+				account.setAccountNum(rs.getString("account_no"));
 				account.setId(rs.getString("memberid"));
 				account.setType(rs.getString("accounttype"));
 				account.setMoney(rs.getInt("money"));
 				account.setPassword(rs.getInt("password"));
+				
+				String bankName = rs.getString("bankcode");
+				switch(bankName) {
+					case "H.J" :
+						bankName = "HJ은행";
+						break;
+					case "JH" :
+						bankName = "JH은행";
+						break;
+					case "0758" :
+						bankName = "하리은행";
+						break;
+					case "BGH" :
+						bankName = "BGH은행";
+						break;
+				}
+				account.setBankCode(bankName);
 				
 				//System.out.println(account.toString());
 				accountList.add(account);
@@ -81,13 +123,13 @@ public class AccountDAO {
 		try {
 			conn = JDBCUtil.getConnection();
 			stmt = conn.prepareStatement(ACCOUNT_SEARCH);
-			stmt.setInt(1, vo1.getAccountNum());
+			stmt.setString(1, vo1.getAccountNum());
 			stmt.setInt(2, vo1.getMoney());
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				AccountVO vo = new AccountVO();
-				vo.setAccountNum(rs.getInt("accountnumber"));
+				vo.setAccountNum(rs.getString("account_no"));
 				vo.setId(rs.getString("memberid"));
 				vo.setType(rs.getString("accounttype"));
 				vo.setMoney(rs.getInt("money"));
@@ -107,19 +149,20 @@ public class AccountDAO {
 		return account;
 	}
 	
-public AccountVO searchAccount_pass(AccountVO vo1) {
+	
+	public AccountVO searchAccount_pass(AccountVO vo1) {
 		
 		AccountVO account=null;
 		
 		try {
 			conn = JDBCUtil.getConnection();
 			stmt = conn.prepareStatement(ACCOUNT_SEARCH2);
-			stmt.setInt(1, vo1.getAccountNum());
+			stmt.setString(1, vo1.getAccountNum());
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				AccountVO vo = new AccountVO();
-				vo.setAccountNum(rs.getInt("accountnumber"));
+				vo.setAccountNum(rs.getString("account_no"));
 				vo.setId(rs.getString("memberid"));
 				vo.setType(rs.getString("accounttype"));
 				vo.setMoney(rs.getInt("money"));
@@ -139,16 +182,16 @@ public AccountVO searchAccount_pass(AccountVO vo1) {
 		return account;
 	}
 
-	public void updateMoney(int accountNum, int accountNum2, int money) {
+	public void updateMoney(String accountNum, String accountNum2, int money) {
 		try {
 			conn = JDBCUtil.getConnection();
 			stmt = conn.prepareStatement(ACCOUNT_MONEY_UPDATE);
-			stmt.setInt(1, accountNum);
+			stmt.setString(1, accountNum);
 			stmt.setInt(2, money);
-			stmt.setInt(3, accountNum2);
+			stmt.setString(3, accountNum2);
 			stmt.setInt(4, money);
-			stmt.setInt(5, accountNum);
-			stmt.setInt(6, accountNum2);
+			stmt.setString(5, accountNum);
+			stmt.setString(6, accountNum2);
 			
 			stmt.executeUpdate();
 		} catch (Exception e) {
@@ -158,7 +201,124 @@ public AccountVO searchAccount_pass(AccountVO vo1) {
 		}
 		
 	}
-
 	
+	public void updateMoney_BGH(String accountNum, int money) {
+		try {
+			conn = JDBCUtil.getConnection();
+			stmt = conn.prepareStatement(ACCOUNT_MONEY_UPDATE_BGH);
+			stmt.setInt(1, money);
+			stmt.setString(2, accountNum);
+			
+			stmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(stmt, conn);
+		}
+		
+	}
+	
+	public void updateMoney_BGH2(String transferaccountNum, int money) {
+		try {
+			conn = JDBCUtil.getConnection();
+			stmt = conn.prepareStatement(ACCOUNT_MONEY_UPDATE_BGH2);
+			stmt.setInt(1, money);
+			stmt.setString(2, transferaccountNum);
+			
+			stmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(stmt, conn);
+		}
+		
+	}
+	
+	public void updateMoney_JH(String accountNum, int money) {
+		try {
+			conn = JDBCUtil.getConnection();
+			stmt = conn.prepareStatement(ACCOUNT_MONEY_UPDATE_JH);
+			stmt.setInt(1, money);
+			stmt.setString(2, accountNum);
+			
+			stmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(stmt, conn);
+		}
+		
+	}
+	
+	
+
+	public int totalMoney(String accountNum) {
+
+		int totalmoney=0;
+		try {
+			conn = JDBCUtil.getConnection();
+			stmt = conn.prepareStatement(ACCOUNT_TOTALMONEY);
+			stmt.setString(1, accountNum);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				int money = rs.getInt("money");
+				
+				totalmoney += money;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs, stmt, conn);
+		}
+		return totalmoney;
+	}
+
+	public List<AccountVO> accountList_BGH(UserVO vo) {
+		
+		List<AccountVO> accountList = new ArrayList<>();
+		
+		try {
+			conn = JDBCUtil.getConnection();
+			stmt = conn.prepareStatement(ACCOUNT_LIST_BGH);
+			stmt.setString(1, vo.getId());
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				AccountVO account = new AccountVO();
+				account.setAccountNum(rs.getString("account_no"));
+				account.setId(rs.getString("user_id"));
+				account.setType(rs.getString("account_name"));
+				account.setMoney(rs.getInt("account_balance"));
+				account.setPassword(rs.getInt("account_pw"));
+				
+				String bankName = rs.getString("bank_code");
+				switch(bankName) {
+					case "H.J" :
+						bankName = "HJ은행";
+						break;
+					case "JH" :
+						bankName = "JH은행";
+						break;
+					case "0758" :
+						bankName = "하리은행";
+						break;
+					case "BGH" :
+						bankName = "BGH은행";
+						break;
+				}
+				account.setBankCode(bankName);
+				
+				accountList.add(account);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs, stmt, conn);
+		}
+		
+		return accountList;
+	}
+
 
 }

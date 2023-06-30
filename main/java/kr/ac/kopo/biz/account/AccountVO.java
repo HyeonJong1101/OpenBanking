@@ -2,24 +2,34 @@ package kr.ac.kopo.biz.account;
 
 public class AccountVO {
 	
-	private int accountNum;
+	private String accountNum;
 	private String id;
 	private int password;
 	private String type;
 	private int money;
 	private String bankCode;
+	private String productID;
 	
 	
+	
+	
+	public String getProductID() {
+		return productID;
+	}
+	public void setProductID(String productID) {
+		this.productID = productID;
+	}
 	public String getBankCode() {
 		return bankCode;
 	}
 	public void setBankCode(String bankCode) {
 		this.bankCode = bankCode;
 	}
-	public int getAccountNum() {
+	
+	public String getAccountNum() {
 		return accountNum;
 	}
-	public void setAccountNum(int accountNum) {
+	public void setAccountNum(String accountNum) {
 		this.accountNum = accountNum;
 	}
 	public String getId() {

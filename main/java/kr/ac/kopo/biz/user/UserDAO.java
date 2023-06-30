@@ -13,8 +13,8 @@ public class UserDAO {
 	private PreparedStatement stmt;
 	private ResultSet rs;
 
-	private static String USER_INSERT = "insert into b_member(memberid,username,password) " +
-										" values(?, ?, ?) ";
+	private static String USER_INSERT = "insert into b_member(memberid,username,password,birthday,phonenumber,sex) " +
+										" values(?, ?, ?,?,?,?) ";
 	private static String USER_SEARCH = "select * from b_member " +
 									 " where memberid=? and password=? ";
 	private static String USER_INFO = "select * from library_user where id=?";
@@ -27,6 +27,9 @@ public class UserDAO {
 			stmt.setString(1, vo.getId());
 			stmt.setString(2, vo.getName());
 			stmt.setString(3, vo.getPassword());
+			stmt.setString(4, vo.getBirthday());
+			stmt.setString(5, vo.getPhoneNumber());
+			stmt.setString(6, vo.getSex());
 			stmt.executeUpdate();
 		} catch (Exception e) {
 			throw e;

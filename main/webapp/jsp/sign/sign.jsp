@@ -168,9 +168,9 @@
 				<input type="password" name="password" id="pass1" class="box" placeholder="비밀번호" oninput="checkPasswordMatch()"><br>
 				<input type="password" name="password2" id="pass2" class="box" placeholder="비밀번호 확인" oninput="checkPasswordMatch()"><br><br>
 				<input type="text" name="name" id="text-field" class="box" placeholder="이름"><br> 
-				<input type="text" id="text-field" class="box" placeholder="생년월일"><br> 
-				<input type="text" id="text-field" class="box" placeholder="휴대번호"><br>
-				<input type="text" id="text-field" class="box" placeholder="성별"><br>
+				<input type="text" name="birth" id="text-field" class="box" placeholder="생년월일"><br> 
+				<input type="text" name="phone" id="text-field" class="box" placeholder="휴대번호"><br>
+				<input type="text" name="sex" id="text-field" class="box" placeholder="성별"><br>
 				<input type="submit" value="가입하기" id="sign-btn">
 			</form>
 		</div>

@@ -8,7 +8,7 @@
 </head>
 <body>
 <br>
-자유게시판<br><br>
+<a href="${pageContext.request.contextPath }/board.do">문의 게시판</a><br><br>
 <hr>
 </body>
 </html>

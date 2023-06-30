@@ -15,8 +15,8 @@
 			<a href="${pageContext.request.contextPath }/accountlist.do">내계좌 보기</a><br /><br /> 
 			<a href="${pageContext.request.contextPath }/moneyhistorybtn.do" >이체 내역</a><br /><br>
 			<a href="${pageContext.request.contextPath }/myaccount.do">계좌 개설</a><br /><br />
-			 <a href="${pageContext.request.contextPath }/accounttransferpage.do">계좌 이체</a><br /><br />
-			 계좌 해지<br /><br />
+			<a href="${pageContext.request.contextPath }/accounttransferpage.do">계좌 이체</a><br /><br />
+			<a href="${pageContext.request.contextPath }/terminate.do"> 계좌 해지</a><br /><br />
 			
 		</div>
 

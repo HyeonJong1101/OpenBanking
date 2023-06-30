@@ -6,7 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import kr.ac.kopo.biz.account.AccountVO;
+import kr.ac.kopo.biz.bankInfo.BankInfoDAO;
+import kr.ac.kopo.biz.bankInfo.BankInfoVO;
 
 public class AccountTransferPageController implements Controller{
 
@@ -15,8 +16,11 @@ public class AccountTransferPageController implements Controller{
 
 		HttpSession session = request.getSession();
 		
+		BankInfoDAO dao = new BankInfoDAO();
+		List<BankInfoVO> list = dao.search();
 		
-		//System.out.println("세선:"+session.getAttribute("accountList")+"\n");
+		session.setAttribute("bankList", list);
+		
 		return "jsp/account/transferPage.jsp";
 	}
 

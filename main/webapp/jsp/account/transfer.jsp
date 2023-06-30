@@ -20,8 +20,8 @@
 
 	<div id="account-form">
 		송금완료<br>
-		내 계좌 : ${acc}<br>
-		송금계좌 : ${tra}<br>
+		내 계좌 : "${bankName}" ${acc}<br>
+		송금계좌 : "${bankName_receive}" ${tra}<br>
 		이체금액 : ${m}<br>
 	</div>
 

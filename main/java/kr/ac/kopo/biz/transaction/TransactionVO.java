@@ -1,30 +1,47 @@
 package kr.ac.kopo.biz.transaction;
 
+import java.util.Date;
+
 public class TransactionVO {
 	
 	private int transactionID;
-	private int accountNum;
-	private int accountNum2;
+	private String accountNum;
+	private String accountNum2;
 	private String transactiontype;
 	private int amount;
-	private String regdate;
+	private Date regdate;
+	private String bankCode;
+	private String bankCode_receive;
 	
+	public String getBankCode() {
+		return bankCode;
+	}
+	public void setBankCode(String bankCode) {
+		this.bankCode = bankCode;
+	}
+	public String getBankCode_receive() {
+		return bankCode_receive;
+	}
+	public void setBankCode_receive(String bankCode_receive) {
+		this.bankCode_receive = bankCode_receive;
+	}
 	public int getTransactionID() {
 		return transactionID;
 	}
 	public void setTransactionID(int transactionID) {
 		this.transactionID = transactionID;
 	}
-	public int getAccountNum() {
+	
+	public String getAccountNum() {
 		return accountNum;
 	}
-	public void setAccountNum(int accountNum) {
+	public void setAccountNum(String accountNum) {
 		this.accountNum = accountNum;
 	}
-	public int getAccountNum2() {
+	public String getAccountNum2() {
 		return accountNum2;
 	}
-	public void setAccountNum2(int accountNum2) {
+	public void setAccountNum2(String accountNum2) {
 		this.accountNum2 = accountNum2;
 	}
 	public String getTransactiontype() {
@@ -39,10 +56,11 @@ public class TransactionVO {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	public String getRegdate() {
+	
+	public Date getRegdate() {
 		return regdate;
 	}
-	public void setRegdate(String regdate) {
+	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
 	@Override

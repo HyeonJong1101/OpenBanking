@@ -19,6 +19,11 @@
 		계좌이체<br>
 
 		<form action="${pageContext.request.contextPath }/sendmoney.do" method="post">
+			이체은행 선택 : <select name="bankCode_receive">
+			<c:forEach var="bank" items="${bankList }">
+				<option value="${bank.bankCode }">${bank.bankName }</option>
+				</c:forEach>
+			</select><br><br>
 			내 계좌선택 : <select name="accountNum">
 			<c:forEach var="account" items="${accountList }">
 				<option>${account.accountNum }</option>

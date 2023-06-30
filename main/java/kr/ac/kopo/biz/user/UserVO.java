@@ -8,8 +8,16 @@ public class UserVO {
 	private String name;
 	private String birthday;
 	private String phoneNumber;
-	private String address;
+	private String sex;
 	
+	
+	
+	public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
 	public String getId() {
 		return id;
 	}
@@ -40,12 +48,5 @@ public class UserVO {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	
 	
 }

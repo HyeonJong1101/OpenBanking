@@ -84,7 +84,8 @@ button {
 				<form action="board_contentbtn.do" method="POST">
     			<input type="hidden" name="title" value="${board.title}">
     			<input type="hidden" name="content" value="${board.content}">
-    			<input type="hidden" name="id" value="${board.writer}">
+    			<input type="hidden" name="writer" value="${board.writer}">
+    			<input type="hidden" name="id" value="${board.boardID}">
     			<button type="submit" style="background: none; border: none; color: blue; cursor: pointer;">${board.title}</button>
   				</form>
 				

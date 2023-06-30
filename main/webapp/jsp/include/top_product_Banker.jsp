@@ -15,13 +15,14 @@
 </style>
 </head>
 <body>
-	<br> 상품
+	<br> 상품관리
 	<br>
 	<br>
 	<hr>
 	<br>
 	<div id="product-menu">
-		<a href="${pageContext.request.contextPath}/deposit.do">예금</a>
+		
+		<a href="${pageContext.request.contextPath}/deposit_Banker.do">예금관리</a>
 		<a href="#">펀드</a> <a href="#">대출</a> <a href="#">신탁</a> <a href="#">ISA</a>
 		<a href="#">보험/공제</a> <a href="#">골드</a> <a href="#">외화예금</a>
 	</div>

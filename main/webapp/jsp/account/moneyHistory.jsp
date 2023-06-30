@@ -21,11 +21,13 @@
 		<form action="${pageContext.request.contextPath }/moneyhistory.do" method="post">
 			내 계좌선택 : <select name="accountNum">
 			<c:forEach var="account" items="${accountList }">
-				<option>${account.accountNum }</option>
-				</c:forEach>
-			</select><br><br>
+				<option>HJ은행 : ${account.accountNum }</option>
+			</c:forEach>
 			
-			 
+			<c:forEach var="account" items="${accountList_BGH }">
+			    <option>BGH은행 : ${account.accountNum }</option>
+			</c:forEach>
+			</select><br><br>
 			<input type="submit" value="조회하기">
 		</form>
 

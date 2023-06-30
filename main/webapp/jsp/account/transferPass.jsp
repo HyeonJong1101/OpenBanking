@@ -24,6 +24,8 @@
 			<input type="hidden" name="accountNum" value="${account1}">
 			<input type="hidden" name="transferaccountNum" value="${account2}">
 			<input type="hidden" name="money" value="${money}">
+			<input type="hidden" name="bankCode" value="${bankCode}">
+			<input type="hidden" name="bankName" value="${bankName}">
 			 
 			 <input type="submit" value="송금하기">
 		</form>
