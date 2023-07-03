@@ -23,7 +23,7 @@ public class SendMoneyController implements Controller{
 		
 		String accountNum = request.getParameter("accountNum");
 		String transferaccountNum = request.getParameter("transferaccountNum");
-		int money = Integer.parseInt(request.getParameter("money"));
+		String money = request.getParameter("money");
 		String bankName = "HJ은행"; 
 		String bankCode_receive = request.getParameter("bankCode_receive"); 
 			
@@ -48,7 +48,7 @@ public class SendMoneyController implements Controller{
 		
 	}
 	
-	public String HJBank(String accountNum, String transferaccountNum, int money, String bankCode_receive, String bankName, HttpServletRequest request) {
+	public String HJBank(String accountNum, String transferaccountNum, String money, String bankCode_receive, String bankName, HttpServletRequest request) {
 	    AccountVO vo1 = new AccountVO();
 	    vo1.setAccountNum(accountNum);
 	    vo1.setMoney(money);
@@ -91,7 +91,7 @@ public class SendMoneyController implements Controller{
 	    }
 	}
 	
-	public String BGHBank(String accountNum, String transferaccountNum, int money, String bankCode_receive, String bankName, HttpServletRequest request) {
+	public String BGHBank(String accountNum, String transferaccountNum, String money, String bankCode_receive, String bankName, HttpServletRequest request) {
 	    AccountVO vo1 = new AccountVO();
 	    vo1.setAccountNum(accountNum);
 	    vo1.setMoney(money);
@@ -137,7 +137,7 @@ public class SendMoneyController implements Controller{
 	    }
 	}
 	
-	public String JHBank(String accountNum, String transferaccountNum, int money, String bankCode_receive, String bankName, HttpServletRequest request) {
+	public String JHBank(String accountNum, String transferaccountNum, String money, String bankCode_receive, String bankName, HttpServletRequest request) {
 	    AccountVO vo1 = new AccountVO();
 	    vo1.setAccountNum(accountNum);
 	    vo1.setMoney(money);
@@ -183,7 +183,7 @@ public class SendMoneyController implements Controller{
 	    }
 	}
 
-	public String HariBank(String accountNum, String transferaccountNum, int money, String bankCode_receive, String bankName, HttpServletRequest request) {
+	public String HariBank(String accountNum, String transferaccountNum, String money, String bankCode_receive, String bankName, HttpServletRequest request) {
 	    AccountVO vo1 = new AccountVO();
 	    vo1.setAccountNum(accountNum);
 	    vo1.setMoney(money);

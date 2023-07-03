@@ -50,6 +50,7 @@ public class UserDAO {
 				user = new UserVO();
 				user.setId(rs.getString("memberid"));
 				user.setPassword(rs.getString("password"));
+				user.setName(rs.getString("username"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -22,9 +22,13 @@ public class AccountListController implements Controller{
 		
 		List<AccountVO> accountList = dao.accountList(vo);
 		List<AccountVO> accountList_BGH = dao.accountList_BGH(vo);
+		List<AccountVO> accountList_JH = dao.accountList_JH(vo);
+		List<AccountVO> accountList_Hari = dao.accountList_Hari(vo);
 		
 		session.setAttribute("accountList", accountList);
 		session.setAttribute("accountList_BGH", accountList_BGH);
+		session.setAttribute("accountList_JH", accountList_JH);
+		session.setAttribute("accountList_Hari", accountList_Hari);
 		
 		return "jsp/account/accountList.jsp";
 	}

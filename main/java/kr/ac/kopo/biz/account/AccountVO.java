@@ -6,7 +6,7 @@ public class AccountVO {
 	private String id;
 	private int password;
 	private String type;
-	private int money;
+	private String money;
 	private String bankCode;
 	private String productID;
 	
@@ -50,10 +50,11 @@ public class AccountVO {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public int getMoney() {
+	
+	public String getMoney() {
 		return money;
 	}
-	public void setMoney(int money) {
+	public void setMoney(String money) {
 		this.money = money;
 	}
 	@Override

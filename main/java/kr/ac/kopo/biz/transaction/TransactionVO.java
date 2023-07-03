@@ -12,7 +12,14 @@ public class TransactionVO {
 	private Date regdate;
 	private String bankCode;
 	private String bankCode_receive;
+	private String name;
 	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getBankCode() {
 		return bankCode;
 	}

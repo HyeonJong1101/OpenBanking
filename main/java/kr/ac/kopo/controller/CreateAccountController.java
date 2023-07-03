@@ -51,7 +51,7 @@ public class CreateAccountController implements Controller{
 		}while(accountNum.equals(accountList.get(0).getAccountNum()));
 		
 		//초기계좌돈,은행코드
-		int money = 0;
+		String money = "0";
 		String code = "H.J";
 		
 		AccountVO vo = new AccountVO();

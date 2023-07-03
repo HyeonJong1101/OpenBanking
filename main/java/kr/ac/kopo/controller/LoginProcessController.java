@@ -18,8 +18,9 @@ public class LoginProcessController implements Controller{
 		UserVO vo = new UserVO();
 		vo.setId(id);
 		vo.setPassword(password);
-		UserDAO dao = new UserDAO();
 		
+		UserDAO dao = new UserDAO();
+		vo = dao.searchUser(vo);
 		if(dao.searchUser(vo) != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", vo);

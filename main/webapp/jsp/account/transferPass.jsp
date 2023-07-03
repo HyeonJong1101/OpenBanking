@@ -20,7 +20,7 @@
 
 		<form action="${pageContext.request.contextPath }/sendmoneybtn.do" method="post">
 			
-			비밀번호 :<input type="password" name="password" required><br>
+			비밀번호 :<input type="password" name="pass" required><br>
 			<input type="hidden" name="accountNum" value="${account1}">
 			<input type="hidden" name="transferaccountNum" value="${account2}">
 			<input type="hidden" name="money" value="${money}">

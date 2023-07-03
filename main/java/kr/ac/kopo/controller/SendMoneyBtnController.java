@@ -4,13 +4,14 @@ import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.ac.kopo.biz.account.AccountDAO;
 import kr.ac.kopo.biz.account.AccountVO;
 import kr.ac.kopo.biz.bankInfo.BankInfoDAO;
-import kr.ac.kopo.biz.bankInfo.BankInfoVO;
 import kr.ac.kopo.biz.transaction.TransactionDAO;
 import kr.ac.kopo.biz.transaction.TransactionVO;
+import kr.ac.kopo.biz.user.UserVO;
 
 public class SendMoneyBtnController implements Controller{
 
@@ -23,14 +24,24 @@ public class SendMoneyBtnController implements Controller{
 	      } catch (UnsupportedEncodingException e) {
 	         e.printStackTrace();
 	      };
+	      
+	    HttpSession session = request.getSession();
+		UserVO user = (UserVO) session.getAttribute("user");
+		String name = user.getName();
+		System.out.println(name);
 		
 		String accountNum = request.getParameter("accountNum");
 		String transferaccountNum = request.getParameter("transferaccountNum");
 		int money = Integer.parseInt(request.getParameter("money"));
-		int pass = Integer.parseInt(request.getParameter("password"));
+		int pass = Integer.parseInt(request.getParameter("pass"));
 		String bankCode = request.getParameter("bankCode");
 		String bankName = request.getParameter("bankName");
-
+		
+		if(request.getParameter("terminate") != null) {
+			System.out.println(request.getParameter("terminate"));
+			request.setAttribute("terminate", "terminate");
+		}
+		
 		AccountVO vo = new AccountVO();
 		AccountDAO dao = new AccountDAO();
 		vo.setAccountNum(accountNum);
@@ -58,6 +69,10 @@ public class SendMoneyBtnController implements Controller{
 			case "JH은행" :
 				dao.updateMoney_BGH(accountNum,money); //내계좌잔액업데이트
 				dao.updateMoney_JH(transferaccountNum,money); //상대계좌잔액업데이트
+				break;
+			case "하리은행" :
+				dao.updateMoney_BGH(accountNum,money); //내계좌잔액업데이트
+				dao.updateMoney_Hari(transferaccountNum,money); //상대계좌잔액업데이트
 				break;
 			}
 			
@@ -92,10 +107,15 @@ public class SendMoneyBtnController implements Controller{
 					update_BGH(accountNum,transferaccountNum,money,bankName,bankName_receive); //계좌내역업데이트
 					break;
 				case "JH은행" :
-					update_JH(accountNum,transferaccountNum,money,bankName,bankName_receive); //계좌내역업데이트
+					update_JH(accountNum,transferaccountNum,money,bankName,bankName_receive,name); //계좌내역업데이트
+					break;
+				case "하리은행" :
+					update_Hari(accountNum,transferaccountNum,money,bankName,bankName_receive,name); //계좌내역업데이트
 					break;
 				}
-			
+				
+				
+				
 			}
 			
 			request.setAttribute("msg", "이체성공");
@@ -126,7 +146,7 @@ public class SendMoneyBtnController implements Controller{
 		
 	}
 	
-	public void update_JH(String accountNum, String transferaccountNum, int money,String bankName, String bankName_receive) {
+	public void update_JH(String accountNum, String transferaccountNum, int money,String bankName, String bankName_receive, String name) {
 		//상대transaction테이블에 insert
 		TransactionVO vo3 = new TransactionVO();
 		vo3.setAccountNum(accountNum);
@@ -134,10 +154,27 @@ public class SendMoneyBtnController implements Controller{
 		vo3.setTransactiontype("입금");
 		vo3.setAmount(money);
 		vo3.setBankCode("H.J");
-		vo3.setBankCode_receive("BGH");
+		vo3.setBankCode_receive("JH");
+		vo3.setName(name);
 		
 		TransactionDAO dao3 = new TransactionDAO();
 		dao3.insert_JH(vo3);
+		
+	}
+	
+	public void update_Hari(String accountNum, String transferaccountNum, int money,String bankName, String bankName_receive, String name) {
+		//상대transaction테이블에 insert
+		TransactionVO vo3 = new TransactionVO();
+		vo3.setAccountNum(accountNum);
+		vo3.setAccountNum2(transferaccountNum);
+		vo3.setTransactiontype("타행이체");
+		vo3.setAmount(money);
+		vo3.setBankCode("H.J");
+		vo3.setBankCode_receive("0758");
+		vo3.setName(name);
+		
+		TransactionDAO dao3 = new TransactionDAO();
+		dao3.insert_Hari(vo3);
 		
 	}
 	
